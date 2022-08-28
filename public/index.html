@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vault for fit people</title>
+
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 1em;
+            flex-direction: column;
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu button {
+            height: 3em;
+            margin: 0em .3em;
+        }
+
+        @media (min-width: 512px) {
+            .header {
+                flex-direction: row;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Push-up view</h1>
+        <div class="menu">
+            <button id="reset">Reset</button>
+            <button id="open">Open Vault</button>
+            <button id="close">Close Vault</button>
+        </div>
+    </div>
+
+    <img src="{{ url_for('video') }}" width="100%" />
+
+    <script>
+        function init() {
+            const resetButton = document.getElementById('reset');
+            const openButton = document.getElementById('open')
+            const closeButton = document.getElementById('close');
+
+            resetButton.addEventListener('click', () => {
+                fetch("/reset").then(() => {
+                    location.reload();
+                });
+            });
+
+            openButton.addEventListener('click', () => {
+                fetch("/open");
+            });
+
+            closeButton.addEventListener('click', () => {
+                fetch("/close");
+            });
+        }
+
+        init();
+    </script>
+</body>
+</html>
